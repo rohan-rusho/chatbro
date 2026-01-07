@@ -1,0 +1,11 @@
+.git
+node_modules
+.DS_Store
+Thumbs.db
+*.log
+.env
+.vscode
+.idea
+*.swp
+*.bak
+START_SERVER.ps1.Identifier
