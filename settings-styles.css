@@ -1,0 +1,139 @@
+/* ========================================
+   SETTINGS SCREEN
+   ======================================== */
+.settings-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.settings-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.settings-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+}
+
+/* Profile Preview */
+.profile-preview-section {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    margin-bottom: var(--spacing-lg);
+}
+
+.profile-icon-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    margin: 0 auto var(--spacing-md);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.profile-code {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Settings Sections */
+.settings-section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Icon Grid */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.icon-option {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.icon-option:hover {
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.icon-option.selected {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+    transform: scale(1.05);
+}
+
+.icon-option.selected::after {
+    content: '✓';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #667eea;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Full width button */
+.btn-full-width {
+    width: 100%;
+    margin-top: var(--spacing-lg);
+}
+
+/* Header actions group */
+.header-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .icon-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .profile-icon-large {
+        width: 100px;
+        height: 100px;
+    }
+}

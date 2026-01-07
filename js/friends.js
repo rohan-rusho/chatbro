@@ -1,6 +1,7 @@
 // Friends & Friend Requests Module
 import { db } from './firebase-config.js';
 import { currentUser } from './auth.js';
+import { listenerManager, LISTENER_KEYS } from './listener-manager.js';
 import {
     collection,
     query,
@@ -15,9 +16,7 @@ import {
     onSnapshot
 } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
-// Real-time listeners
-let friendRequestsUnsubscribe = null;
-let friendsListUnsubscribe = null;
+
 
 // Send friend request
 export async function sendFriendRequest(targetCode) {
@@ -98,13 +97,16 @@ export function listenToFriendRequests(callback) {
         where('status', '==', 'pending')
     );
 
-    friendRequestsUnsubscribe = onSnapshot(q, (snapshot) => {
+    const unsubscribe = onSnapshot(q, (snapshot) => {
         const requests = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         }));
         callback(requests);
     });
+
+    // Register with listener manager
+    listenerManager.register(LISTENER_KEYS.FRIEND_REQUESTS, unsubscribe);
 }
 
 // Accept friend request
@@ -155,7 +157,7 @@ export function listenToFriendsList(callback) {
 
     const friendsRef = doc(db, 'friends', currentUser.uid);
 
-    friendsListUnsubscribe = onSnapshot(friendsRef, async (snapshot) => {
+    const unsubscribe = onSnapshot(friendsRef, async (snapshot) => {
         if (!snapshot.exists()) {
             callback([]);
             return;
@@ -182,16 +184,13 @@ export function listenToFriendsList(callback) {
 
         callback(friendsData);
     });
+
+    // Register with listener manager
+    listenerManager.register(LISTENER_KEYS.FRIENDS_LIST, unsubscribe);
 }
 
 // Cleanup listeners
 export function cleanupFriendsListeners() {
-    if (friendRequestsUnsubscribe) {
-        friendRequestsUnsubscribe();
-        friendRequestsUnsubscribe = null;
-    }
-    if (friendsListUnsubscribe) {
-        friendsListUnsubscribe();
-        friendsListUnsubscribe = null;
-    }
+    listenerManager.unregister(LISTENER_KEYS.FRIEND_REQUESTS);
+    listenerManager.unregister(LISTENER_KEYS.FRIENDS_LIST);
 }

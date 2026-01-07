@@ -2,6 +2,7 @@
 import { signIn, logout, initAuthStateListener, currentUser } from './auth.js';
 import { sendFriendRequest, acceptFriendRequest, rejectFriendRequest, listenToFriendRequests, listenToFriendsList, cleanupFriendsListeners } from './friends.js';
 import { openChat, sendMessage, listenToMessages, cleanupChatListeners, getCurrentChatInfo } from './chat.js';
+import { initializeSettings, saveSettings } from './settings.js';
 import {
     showScreen,
     showLoading,
@@ -17,8 +18,9 @@ import {
 
 // DOM Elements
 let signInBtn, displayNameInput;
-let logoutBtn, sendRequestBtn, friendCodeInput;
-let backToDashboardBtn, sendMessageBtn, messageInput;
+let logoutBtn, settingsBtn, sendRequestBtn, friendCodeInput;
+let backToDashboardBtn, backToDashboardFromSettings, sendMessageBtn, messageInput;
+let saveSettingsBtn;
 
 // State management
 let isSendingMessage = false;
@@ -40,8 +42,13 @@ function initDOMElements() {
 
     // Dashboard
     logoutBtn = document.getElementById('logoutBtn');
+    settingsBtn = document.getElementById('settingsBtn');
     sendRequestBtn = document.getElementById('sendRequestBtn');
     friendCodeInput = document.getElementById('friendCodeInput');
+
+    // Settings
+    backToDashboardFromSettings = document.getElementById('backToDashboardFromSettings');
+    saveSettingsBtn = document.getElementById('saveSettingsBtn');
 
     // Chat screen
     backToDashboardBtn = document.getElementById('backToDashboard');
@@ -110,6 +117,23 @@ function initEventListeners() {
             handleRejectRequest(requestId);
         }
     });
+
+    // Settings - Open settings
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', handleOpenSettings);
+    }
+
+    // Settings - Back to dashboard
+    if (backToDashboardFromSettings) {
+        backToDashboardFromSettings.addEventListener('click', () => {
+            showScreen('dashboardScreen');
+        });
+    }
+
+    // Settings - Save settings
+    if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', handleSaveSettings);
+    }
 
     // Chat screen - Back to dashboard
     if (backToDashboardBtn) {
@@ -304,6 +328,31 @@ async function handleSendMessage() {
         if (sendMessageBtn) {
             sendMessageBtn.disabled = messageInput?.value?.trim().length === 0;
         }
+    }
+}
+
+// Handle open settings
+function handleOpenSettings() {
+    initializeSettings(currentUser);
+    showScreen('settingsScreen');
+}
+
+// Handle save settings
+async function handleSaveSettings() {
+    try {
+        showLoading('Saving...');
+        const updated = await saveSettings();
+        hideLoading();
+
+        // Update currentUser and UI
+        Object.assign(currentUser, updated);
+        updateUserInfo(currentUser);
+
+        showNotification('Profile updated successfully!', 'success');
+        showScreen('dashboardScreen');
+    } catch (error) {
+        hideLoading();
+        showNotification(error.message || 'Failed to save settings', 'error');
     }
 }
 

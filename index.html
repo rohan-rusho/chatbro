@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Premium real-time chat application powered by Firebase">
     <title>ChatBro - Connect & Chat</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay hidden">
@@ -31,15 +33,19 @@
                 <div class="auth-header">
                     <div class="logo">
                         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="30" cy="30" r="28" fill="url(#gradient)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
-                            <path d="M20 25C20 21.134 23.134 18 27 18H33C36.866 18 40 21.134 40 25V35C40 38.866 36.866 42 33 42H27C23.134 42 20 38.866 20 35V25Z" fill="white" opacity="0.9"/>
-                            <circle cx="26" cy="28" r="2" fill="url(#gradient)"/>
-                            <circle cx="34" cy="28" r="2" fill="url(#gradient)"/>
-                            <path d="M26 34C26 34 28 36 30 36C32 36 34 34 34 34" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="30" cy="30" r="28" fill="url(#gradient)" stroke="rgba(255,255,255,0.2)"
+                                stroke-width="2" />
+                            <path
+                                d="M20 25C20 21.134 23.134 18 27 18H33C36.866 18 40 21.134 40 25V35C40 38.866 36.866 42 33 42H27C23.134 42 20 38.866 20 35V25Z"
+                                fill="white" opacity="0.9" />
+                            <circle cx="26" cy="28" r="2" fill="url(#gradient)" />
+                            <circle cx="34" cy="28" r="2" fill="url(#gradient)" />
+                            <path d="M26 34C26 34 28 36 30 36C32 36 34 34 34 34" stroke="url(#gradient)"
+                                stroke-width="2" stroke-linecap="round" />
                             <defs>
                                 <linearGradient id="gradient" x1="0" y1="0" x2="60" y2="60">
-                                    <stop offset="0%" stop-color="#667eea"/>
-                                    <stop offset="100%" stop-color="#764ba2"/>
+                                    <stop offset="0%" stop-color="#667eea" />
+                                    <stop offset="100%" stop-color="#764ba2" />
                                 </linearGradient>
                             </defs>
                         </svg>
@@ -51,14 +57,8 @@
                 <div class="auth-form">
                     <div class="input-group">
                         <label for="displayName">Display Name</label>
-                        <input 
-                            type="text" 
-                            id="displayName" 
-                            class="input-field"
-                            placeholder="Enter your name"
-                            maxlength="20"
-                            autocomplete="off"
-                        >
+                        <input type="text" id="displayName" class="input-field" placeholder="Enter your name"
+                            maxlength="20" autocomplete="off">
                     </div>
 
                     <button id="signInBtn" class="btn btn-primary">
@@ -91,28 +91,32 @@
                         </div>
                     </div>
                 </div>
-                <button id="logoutBtn" class="btn-icon-only" title="Logout">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                        <polyline points="16 17 21 12 16 7"/>
-                        <line x1="21" y1="12" x2="9" y2="12"/>
-                    </svg>
-                </button>
+                <div class="header-actions">
+                    <button id="settingsBtn" class="btn-icon-only" title="Settings">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3" />
+                            <path
+                                d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24" />
+                        </svg>
+                    </button>
+                    <button id="logoutBtn" class="btn-icon-only" title="Logout">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                    </button>
+                </div>
             </header>
 
             <!-- Add Friend Section -->
             <div class="add-friend-section">
                 <h3 class="section-title">Add Friend</h3>
                 <div class="add-friend-form">
-                    <input 
-                        type="text" 
-                        id="friendCodeInput" 
-                        class="input-field"
-                        placeholder="Enter 4-digit code"
-                        maxlength="4"
-                        pattern="[0-9]*"
-                        inputmode="numeric"
-                    >
+                    <input type="text" id="friendCodeInput" class="input-field" placeholder="Enter 4-digit code"
+                        maxlength="4" pattern="[0-9]*" inputmode="numeric">
                     <button id="sendRequestBtn" class="btn btn-primary">
                         <span>Send Request</span>
                     </button>
@@ -133,16 +137,63 @@
                 <h3 class="section-title">Friends</h3>
                 <div id="friendsList" class="friends-list">
                     <div class="empty-state">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
                         <p>No friends yet</p>
                         <p class="empty-state-subtitle">Add friends using their unique code</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SETTINGS SCREEN -->
+    <div id="settingsScreen" class="screen">
+        <div class="settings-container">
+            <header class="settings-header">
+                <button id="backToDashboardFromSettings" class="btn-icon-only">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <h2 class="settings-title">Settings</h2>
+                <div style="width: 48px;"></div> <!-- Spacer for centering -->
+            </header>
+
+            <div class="settings-content">
+                <!-- Current Profile Preview -->
+                <div class="profile-preview-section">
+                    <div id="currentProfileIcon" class="profile-icon-large"></div>
+                    <h3 id="currentProfileName" class="profile-name">Your Name</h3>
+                    <p class="profile-code">Code: <span id="currentProfileCode">0000</span></p>
+                </div>
+
+                <!-- Edit Name Section -->
+                <div class="settings-section">
+                    <h3 class="section-title">Display Name</h3>
+                    <div class="input-group">
+                        <input type="text" id="editNameInput" class="input-field" placeholder="Enter your name"
+                            maxlength="20">
+                    </div>
+                </div>
+
+                <!-- Profile Icon Selection -->
+                <div class="settings-section">
+                    <h3 class="section-title">Choose Profile Icon</h3>
+                    <div class="icon-grid" id="iconGrid">
+                        <!-- Icons will be dynamically generated here -->
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <button id="saveSettingsBtn" class="btn btn-primary btn-full-width">
+                    <span>Save Changes</span>
+                </button>
             </div>
         </div>
     </div>
@@ -154,7 +205,7 @@
             <header class="chat-header">
                 <button id="backToDashboard" class="btn-icon-only">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
                     </svg>
                 </button>
                 <div class="chat-friend-info">
@@ -178,18 +229,13 @@
             <!-- Message Input -->
             <div class="message-input-container">
                 <div class="message-input-wrapper">
-                    <input 
-                        type="text" 
-                        id="messageInput" 
-                        class="message-input"
-                        placeholder="Type a message..."
-                        maxlength="500"
-                        autocomplete="off"
-                    >
+                    <input type="text" id="messageInput" class="message-input" placeholder="Type a message..."
+                        maxlength="500" autocomplete="off">
                     <button id="sendMessageBtn" class="btn-send" disabled>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="22" y1="2" x2="11" y2="13"/>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
                         </svg>
                     </button>
                 </div>
@@ -204,7 +250,9 @@
     <script type="module" src="./js/auth.js"></script>
     <script type="module" src="./js/friends.js"></script>
     <script type="module" src="./js/chat.js"></script>
+    <script type="module" src="./js/settings.js"></script>
     <script type="module" src="./js/ui.js"></script>
     <script type="module" src="./js/app.js"></script>
 </body>
+
 </html>
